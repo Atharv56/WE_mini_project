@@ -9,6 +9,8 @@ const Todo = ({ todo }) => {
 
     const [editing, setEditing] = useState(false);
     const [text, setText] = useState(todo?.data);
+    const [likes, setLikes] = useState(0);
+    const [dislikes, setDislikes] = useState(0);
 
     const dispatch = useDispatch();
 
@@ -20,12 +22,20 @@ const Todo = ({ todo }) => {
         dispatch(updateTodo(todo._id, text))
     }
 
+    const handleLikeClick = () => {
+        setLikes(prevLikes => prevLikes + 1);
+    }
+
+    const handleDislikeClick = () => {
+        setDislikes(prevDislikes => prevDislikes + 1);
+    }
+
     return (
         <li
             className="task"
             onClick={() => dispatch(toggleTodo(todo._id))}
             style={{
-                textDecoration: todo?.done ? 'line-through' : '',
+                textDecoration: todo?.done ? 'underline' : '',
                 color: todo?.done ? '#bdc3c7' : '#34495e'
             }}
             data-testid="todo-test"
@@ -50,6 +60,13 @@ const Todo = ({ todo }) => {
             <span className="icon" onClick={() => setEditing(prevState => !prevState)}>
                 <i className="fas fa-pen" />
             </span>
+            <span className="icon" onClick={handleDislikeClick}>
+                <i className="fas fa-thumbs-down" /> {dislikes}
+            </span>
+            <span className="icon" onClick={handleLikeClick}>
+                <i className="fas fa-thumbs-up" /> {likes}
+            </span>
+
         </li>
     )
 }

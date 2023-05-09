@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // component
 import Todo from './Todo';
 import Tabs from './Tabs';
+import { Button } from 'bootstrap';
 
 
 export const Todos = () => {
@@ -41,17 +42,13 @@ export const Todos = () => {
     }
 
     return (
+        <>
         <article>
             <div>
                 <Tabs currentTab={currentTab} />
 
                 {
-                    todos.some(todo => todo.done) ? (
-                        <button
-                            onClick={removeDoneTodos}
-                            className="button clear"
-                        >Remove Done Todos</button>
-                    ) : null    
+
                 }
             </div>
 
@@ -66,6 +63,7 @@ export const Todos = () => {
                 }
             </ul>
         </article>
+        </>
     )
 }
 

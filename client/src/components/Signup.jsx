@@ -1,10 +1,31 @@
 import React from 'react'
 import axios from 'axios'
-import { motion } from 'framer-motion'
-import './Login.css'
 import { useState } from 'react';
+import AnimatedPage from './Animate/Animate';
+
+import {
+    Flex,
+    Box,
+    FormControl,
+    FormLabel,
+    Input,
+    InputGroup,
+    InputRightElement,
+    Stack,
+    Button,
+    Heading,
+    Text,
+    Link
+  } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+
+
+
+
 
 const SignUp = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [userDetails, setUserDetails] = useState({
       name: "",
       email: "",
@@ -19,7 +40,7 @@ const SignUp = () => {
       const response = await axios.post('http://localhost:8000/register', userDetails);
       // console.log("response: " + response.data);
       if(response.data == 1) {
-        window.location.href = "/";
+        window.location.href = "/login";
         localStorage.setItem("isIn", 'true');
       }
       else {
@@ -41,53 +62,103 @@ const SignUp = () => {
     }
   }
   return (
-    <motion.div className="loginBox"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    // transition={{delay: 0, duration: 1}}
-    exit={{ opacity: 0 }}>
-      <h2>Register</h2>
-      {/* test button */}
-      {/* <button className='bg-blue-500'>
-        <i className="fa-solid fa-plus" style={
-          { padding: "0px 10px 0px 0px" }
-        }></i>
-        Add Event
-      </button> */}
-      {/* test button */}
-      <form>
-      <div className="userBox">
-          <input type="text" id="userid" name="name" placeholder=" " onChange={handleChange}></input>
-          <label>Name</label>
-        </div>
-        <div className="userBox">
-          <input type="email" id="userid" name="email" placeholder=" " onChange={handleChange}></input>
-          <label>Username</label>
-        </div>
-        <div className="userBox">
-          <input type="password" id="myInput" name="password" placeholder=" "  onChange={handleChange}></input>
-          <label>Password</label>
-          <i className="far fa-eye" id="togglePassword"
-            // onclick="myFunction()"
-            onClick={() =>
-              myFunction()
+    
+    <Flex
+      minH={'100vh'}
+      align={'center'}
+      justify={'center'}
+      bg='#0F0F0F'>
+      <AnimatedPage>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack align={'center'}>
+          <Heading color={'#dd4d51'} fontSize={'4xl'} textAlign={'center'}>
+            Sign up
+          </Heading>
+          <Text fontSize={'lg'} color={'#dd4d51'}>
+            to enjoy all of our cool <Link color={'#FFFFFF'} _hover={{color: '#dd4d51'}}>features</Link> ✌️
+          </Text>
+        </Stack>
+        <Box
+          rounded={'lg'}
+          bg ={'#e0e0e0'}
+          boxShadow={'lg'}
+          p={8}
+          pl={20}
+          pr={20}
+          borderRadius="30">
+          <Stack spacing={4}>
+              <Box>
+                <FormControl >
+                  <FormLabel>Name</FormLabel>
+                  <Input borderRadius="15" borderColor="black" focusBorderColor="red"
+                    type="text"
+                    onChange={handleChange}
+                    id="userid" name="name"
+                  />
+                </FormControl>
+              </Box>
+            <FormControl>
+              <FormLabel>User Name</FormLabel>
+              <Input type="text" borderRadius="15" borderColor="black" focusBorderColor="red"
+              onChange={handleChange}
+              id="userid" name="email"
+              />
+            </FormControl>
+            <FormControl >
+              <FormLabel>Password</FormLabel>
+              <InputGroup>
+                <Input borderRadius="15" type={showPassword ? 'text' : 'password'} borderColor="black" focusBorderColor="red"
+                onChange={handleChange}
+                id="userid" name="password"/>
+                {/* <InputRightElement h={'full'}>
+                  <Button
+                    color={'red'}
+                    _hover={{
+                      color: '#0F0F0F',
+                    }}
+                    _active={{
+                        transform: 'scale(1.1)',
+                        color: '#0F0F0F',
+                    }}
+                    
+                    variant={'ghost'}
+                    onClick={() =>
+                      myFunction()
+                    
+                    }>
+                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement> */}
+              </InputGroup>
+            </FormControl>
+            <Stack spacing={10} pt={2}>
+              <Button
+                bg={'#FF6B6B'}
+                color={'white'}
+                borderRadius="30"
+                _hover={{
+                  bg: '#0F0F0F',
+                }}
+                loadingText="Submitting"
+                size="lg"
+                className='Register'
 
-            }
-          ></i>
+                onClick={handleSubmit}
 
-        </div>
-        <a  onClick={handleSubmit
-          //handle this properly with router
-          // should go back to screen from where the login button was clicked after successfully logging in
-        }>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          Submit
-        </a>
-      </form>
-    </motion.div>
+                >
+                Sign up
+              </Button>
+            </Stack>
+            <Stack pt={6}>
+              <Text align={'center'}>
+                Already a user? <Link as={RouterLink} to="/login" color={'#FF6B6B'} _hover={{color: '#0F0F0F'}}>Login</Link>
+              </Text>
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
+      </AnimatedPage>
+    </Flex>
 
   )
 }

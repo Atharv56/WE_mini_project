@@ -4,6 +4,10 @@ import { useDispatch } from "react-redux";
 
 import { addNewTodo } from "../redux/actions";
 
+import "./Form.css";
+import { Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+
 
 const TodoForm = () => {
     const [text, setText] = useState("");
@@ -23,14 +27,21 @@ const TodoForm = () => {
     }
 
     return (
+        <div className="formdiv">
         <form className="form" onSubmit={onFormSubmit}>
             <input  
-                placeholder="Enter new todo..."
+                placeholder="Add a new idea"
                 className="input"
                 onChange={onInputChange}
                 value={text}
             />
         </form>
+        <Link to="/login">
+        <Button className="logoutbutton">
+            Logout
+        </Button>
+        </Link>
+        </div>
     )
 }
 

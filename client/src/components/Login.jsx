@@ -1,8 +1,21 @@
 import React from 'react'
 import axios from 'axios'
-import { motion } from 'framer-motion'
-import './Login.css'
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Checkbox,
+  Stack,
+  Link,
+  Button,
+  Heading,
+  Text,
+} from '@chakra-ui/react';
 import { useState } from 'react';
+import AnimatedPage from './Animate/Animate';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Login = () => {
   const [userDetails, setUserDetails] = useState({
@@ -41,49 +54,72 @@ const Login = () => {
   }
 
   return (
-    <motion.div className="loginBox"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    // transition={{delay: 0, duration: 1}}
-    exit={{ opacity: 0 }}>
-      <h2>Login</h2>
-      {/* test button */}
-      {/* <button className='bg-blue-500'>
-        <i className="fa-solid fa-plus" style={
-          { padding: "0px 10px 0px 0px" }
-        }></i>
-        Add Event
-      </button> */}
-      {/* test button */}
-      <form>
-        <div className="userBox">
-          <input type="text" id="userid" name="email" placeholder=" " onChange={handleChange}></input>
-          <label>Username</label>
-        </div>
-        <div className="userBox">
-          <input type="password" id="myInput" name="password" placeholder=" "  onChange={handleChange}></input>
-          <label>Password</label>
-          <i className="far fa-eye" id="togglePassword"
-            // onclick="myFunction()"
-            onClick={() =>
-              myFunction()
-
-            }
-          ></i>
-
-        </div>
-        <a  onClick={handleSubmit
-          //handle this properly with router
-          // should go back to screen from where the login button was clicked after successfully logging in
-        }>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          Submit
-        </a>
-      </form>
-    </motion.div>
+    <>
+    <Flex
+      minH={'100vh'}
+      align={'center'}
+      justify={'center'}
+      bg = "#0F0F0F"
+      
+      >
+      <AnimatedPage>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack align={'center'}>
+          <Heading color={'#dd4d51'} fontSize={'4xl'}>Sign in to your account</Heading>
+          <Text fontSize={'lg'} color={'#dd4d51'}>
+            to enjoy all of our cool <Link color={'#FFFFFF'} _hover={{color: '#dd4d51'}}>features</Link> ✌️
+          </Text>
+        </Stack>
+        <Box
+          
+          rounded={'lg'}
+          bg ={'#e0e0e0'}
+          boxShadow={'2xl'}
+          p={8}
+          borderRadius="30">
+          <Stack spacing={4}>
+            <FormControl id="email">
+              <FormLabel>Username</FormLabel>
+              <Input borderRadius="15" type="sutring" borderColor="black" focusBorderColor="red"
+              onChange={handleChange}
+              id="userid" name="email" 
+              />
+            </FormControl>
+            <FormControl id="password">
+              <FormLabel>Password</FormLabel>
+              <Input borderRadius="15" type="password" borderColor="black" focusBorderColor="red"
+              onChange={handleChange}
+              id="myInput" name="password"
+              />
+            </FormControl>
+            <Stack spacing={10}>
+              <Stack
+                direction={{ base: 'column', sm: 'row' }}
+                align={'start'}
+                justify={'space-between'}>
+                <Checkbox colorScheme='red' defaultChecked>Remember me</Checkbox>
+                <Link 
+                as={RouterLink} to="/signup" color={'#FF6B6B'} _hover={{color: '#0F0F0F'}}
+                >
+                  New User?</Link>
+              </Stack>
+              <Button
+                bg={'#FF6B6B'}
+                color={'white'}
+                borderRadius="30"
+                _hover={{
+                  bg: '#0F0F0F',
+                }}
+                onClick={handleSubmit}>
+                Sign in
+              </Button>
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
+      </AnimatedPage>
+    </Flex>
+    </>
 
   )
 }
